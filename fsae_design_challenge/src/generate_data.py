@@ -11,8 +11,7 @@ def synth_vehicle_speed(t):
     v = 18.0 + 2.5*np.sin(2*math.pi*t/20.0)
     for (t0, t1) in [(8.0, 10.0), (20.0, 22.5), (34.0, 37.0)]:
         mask = (t >= t0) & (t <= t1)
-        tau = (t[mask] - t0) / (t1 - t0 + 1e-6)
-        decel = 7.0 * (1 - np.cos(math.pi * clamp(tau, 0, 1))) / 2.0
+        decel = 7.0 * (1 - np.cos(math.pi * clamp(0, 1))) / 2.0
         v[mask] -= decel
     v = np.clip(v, 2.0, None) + np.random.normal(0, 0.05, size=v.shape)
     return moving_avg(v, 5)
@@ -21,8 +20,8 @@ def synth_pressure(t):
     p = np.zeros_like(t)
     for (t0, t1) in [(7.8, 10.2), (19.7, 22.7), (33.5, 37.2)]:
         mask = (t >= t0) & (t <= t1)
-        tau = (t[mask] - t0) / (t1 - t0 + 1e-6)
-        shape = np.sin(math.pi * clamp(tau, 0, 1))
+       (t[mask] - t0) / (t1 - t0 + 1e-6)
+        shape = np.sin(math.pi * clamp(0, 1))
         peak = np.random.uniform(950, 1300)
         p[mask] = peak * shape
     p += np.random.normal(0, C.PRESSURE_BASE_NOISE_PSI, size=p.shape)
